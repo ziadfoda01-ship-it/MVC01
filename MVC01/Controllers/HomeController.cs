@@ -28,12 +28,12 @@ namespace MVC01.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
-        public IActionResult Reserch(FilsResercher filsResercher)
+        public IActionResult Search (ProudctFilter filsResercher)
         {
             return View();
 
         }
-        public IActionResult Result([FromQuery] int Id , [FromQuery] int   OtherId)
+        public IActionResult GetById([FromQuery] int Id , [FromQuery(Name = "Id2")] int   OtherId)
         {
             return Json("");
 

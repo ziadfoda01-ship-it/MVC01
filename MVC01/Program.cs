@@ -1,3 +1,5 @@
+using MVC01.Controllers.Middlware;
+
 namespace MVC01
 {
     public class Program
@@ -5,12 +7,7 @@ namespace MVC01
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
-            app.Use(async(context ,  next) =>
-
-            {
-                Console.WriteLine("Hello");
-                await next(context);
-            };
+           
 
 
             // Add services to the container.
@@ -18,6 +15,13 @@ namespace MVC01
             builder.Services.AddControllers();// API
             builder.Services.AddRazorPages();// Razor Pages
             var app = builder.Build();
+            app.Use(async (context, next) =>
+
+            {
+                Console.WriteLine("Hello");
+                await next(context);
+                Console.WriteLine("Bye");
+            });
 
             // Configure the HTTP request pipeline.
             if (!app.Environment.IsDevelopment())
@@ -37,6 +41,7 @@ namespace MVC01
                 name: "default",
                 pattern: "{controller=Home}/{action=Index}/{id?}")
                 .WithStaticAssets();
+            app.UseMiddleware<ReuqestTimingMiddlware>();
             
 
             app.Run();
